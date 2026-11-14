@@ -1,0 +1,116 @@
+{
+  "id": "b1a2c3d4-0001-4000-8000-personal0001",
+  "version": "2.0",
+  "name": "personal",
+  "url": "https://opensource-demo.orangehrmlive.com",
+  "tests": [
+    {
+      "id": "tc-001-login-logout",
+      "name": "TC001_LoginLogout",
+      "commands": [
+        {
+          "id": "cmd-101",
+          "command": "open",
+          "target": "/web/index.php/auth/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "cmd-102",
+          "command": "type",
+          "target": "name=username",
+          "targets": [["name=username", "name"]],
+          "value": "Admin"
+        },
+        {
+          "id": "cmd-103",
+          "command": "type",
+          "target": "name=password",
+          "targets": [["name=password", "name"]],
+          "value": "admin123"
+        },
+        {
+          "id": "cmd-104",
+          "command": "click",
+          "target": "xpath=//button[@type='submit']",
+          "targets": [["xpath=//button[@type='submit']", "xpath:attributes"]],
+          "value": ""
+        },
+        {
+          "id": "cmd-105",
+          "command": "assertText",
+          "target": "linkText=Dashboard",
+          "targets": [["linkText=Dashboard", "linkText"]],
+          "value": "Dashboard"
+        },
+        {
+          "id": "cmd-106",
+          "command": "click",
+          "target": "xpath=//div[@id='app']/div/div/header/div/div[3]/ul/li/span/p",
+          "targets": [["xpath=//div[@id='app']/div/div/header/div/div[3]/ul/li/span/p", "xpath:idRelative"]],
+          "value": ""
+        },
+        {
+          "id": "cmd-107",
+          "command": "click",
+          "target": "linkText=Logout",
+          "targets": [["linkText=Logout", "linkText"]],
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "tc-002-invalid-password",
+      "name": "TC002_InvalidPassword",
+      "commands": [
+        {
+          "id": "cmd-201",
+          "command": "open",
+          "target": "/web/index.php/auth/login",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "cmd-202",
+          "command": "type",
+          "target": "name=username",
+          "targets": [["name=username", "name"]],
+          "value": "Admin"
+        },
+        {
+          "id": "cmd-203",
+          "command": "type",
+          "target": "name=password",
+          "targets": [["name=password", "name"]],
+          "value": "WrongPassword123"
+        },
+        {
+          "id": "cmd-204",
+          "command": "click",
+          "target": "xpath=//button[@type='submit']",
+          "targets": [["xpath=//button[@type='submit']", "xpath:attributes"]],
+          "value": ""
+        },
+        {
+          "id": "cmd-205",
+          "command": "assertText",
+          "target": "xpath=//div[@id='app']/div/div/div/div/div[2]/div[2]/div/div/div/p",
+          "targets": [["xpath=//div[@id='app']/div/div/div/div/div[2]/div[2]/div/div/div/p", "xpath:idRelative"]],
+          "value": "Invalid credentials"
+        }
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "id": "suite-personal-01",
+      "name": "OrangeHRM Smoke Suite",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 300,
+      "tests": ["tc-001-login-logout", "tc-002-invalid-password"]
+    }
+  ],
+  "urls": ["https://opensource-demo.orangehrmlive.com/"],
+  "plugins": []
+}
