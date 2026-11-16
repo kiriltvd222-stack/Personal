@@ -4,5 +4,5 @@
 | :--- | :--- | :--- | :--- |
 | Налаштування репозиторію (Maven) | Інфраструктура | Сиротін Максим | Done |
 | Автотести: `EmployeeValidator` | BL-80 | Сиротін Максим | In Progress |
-| Автотести: `LeaveCalculator` | BL-10, BL-20, BL-30, BL-40 | Ходячих Нікіта | To Do |
+| Автотести: `LeaveCalculator` | BL-10, BL-20, BL-30, BL-40 | Ходячих Нікіта | Done |
 | Автотести: `PayrollCalculator` | BL-50, BL-60, BL-70 | Кудря Кіріл | To Do |
