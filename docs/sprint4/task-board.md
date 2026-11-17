@@ -3,6 +3,6 @@
 | Завдання | Вимоги SRS | Виконавець | Статус |
 | :--- | :--- | :--- | :--- |
 | Налаштування репозиторію (Maven) | Інфраструктура | Сиротін Максим | Done |
-| Автотести: `EmployeeValidator` | BL-80 | Сиротін Максим | In Progress |
+| Автотести: `EmployeeValidator` | BL-80 | Сиротін Максим | Done |
 | Автотести: `LeaveCalculator` | BL-10, BL-20, BL-30, BL-40 | Ходячих Нікіта | Done |
-| Автотести: `PayrollCalculator` | BL-50, BL-60, BL-70 | Кудря Кіріл | To Do |
+| Автотести: `PayrollCalculator` | BL-50, BL-60, BL-70 | Кудря Кіріл | Done |
