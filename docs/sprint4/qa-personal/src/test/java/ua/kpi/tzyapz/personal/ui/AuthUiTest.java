@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -39,12 +41,16 @@ class AuthUiTest extends BaseUiTest {
     }
 
     @Test
-    @DisplayName("TC-003: Валідація порожніх полів при спробі входу")
-    void loginWithEmptyFieldsShowsRequiredValidation() {
+    @DisplayName("TC-003: Спроба входу з порожнім полем Username")
+    void loginWithEmptyUsernameShowsRequiredValidation() {
+        // Поле 'Username' залишаємо порожнім, у 'Password' вводимо 'admin123'
+        waitVisible(By.name("password")).sendKeys("admin123");
         waitVisible(By.cssSelector("button[type='submit']")).click();
-        waitVisible(By.cssSelector(".oxd-input-field-error-message"));
 
-        int requiredMessages = driver.findElements(By.cssSelector(".oxd-input-field-error-message")).size();
-        assertEquals(2, requiredMessages, "Очікується 2 повідомлення 'Required' для порожніх логіна та пароля");
+        WebElement errorMsg = waitVisible(By.cssSelector(".oxd-input-field-error-message"));
+        assertEquals("Required", errorMsg.getText());
+
+        List<WebElement> allErrors = driver.findElements(By.cssSelector(".oxd-input-field-error-message"));
+        assertEquals(1, allErrors.size(), "Очікується рівно 1 повідомлення 'Required' лише під полем Username");
     }
 }
