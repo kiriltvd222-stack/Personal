@@ -32,3 +32,23 @@ qa-personal/
             ├── BaseUiTest.java
             ├── AuthUiTest.java
             └── ValidationUiTest.java
+```
+
+## 3. Команди запуску
+Виконувати з папки `docs/sprint4/qa-personal/`:
+
+```bash
+# Запуск усіх юніт-тестів (UI-тести з тегом "ui" виключені за замовчуванням)
+mvn clean test
+
+# Запуск лише UI-тестів (Selenium WebDriver, Chrome Headless)
+mvn test -Dtest="ua.kpi.tzyapz.personal.ui.*Test" -DexcludedGroups=none
+
+# Запуск усіх тестів (юніт + UI)
+mvn clean test -DexcludedGroups=none
+```
+
+## 4. Автори тестів
+- **Сиротін Максим (КТ+СМ):** `EmployeeValidatorTest.java` (BL-80), інтеграція проєкту та документація.
+- **Ходячих Нікіта (ТА):** `LeaveCalculatorTest.java` (BL-10..BL-40), матриця покриття `test-cases.md`.
+- **Кудря Кіріл (ІТ):** `PayrollCalculatorTest.java` (BL-50..BL-70), Selenium IDE, `ui/*Test.java`.
