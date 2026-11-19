@@ -1,12 +1,10 @@
 # Тест-кейси модульного тестування — П3 «Персонал+» (Sprint 4)
 
-* **Об'єкт тестування:** модуль бізнес-логіки `ua.kpi.tzyapz.personal` v1.0.0 (`LeaveCalculator`, `PayrollCalculator`, `EmployeeValidator`)
-* **Специфікація:** розділ 5 `SRS_03_Персонал_плюс.html` (правила `BL-10` — `BL-80`)
-* **Тест-аналітик:** Ходячих Нікіта (група ФБ-42)
-* **Інженер з тестування (SDET):** Кудря Кіріл
-* **Керівник тестування (Test Lead):** Сиротін Максим
-
----
+- **Об'єкт тестування:** модуль бізнес-логіки `ua.kpi.tzyapz.personal` v1.0.0 (`LeaveCalculator`, `PayrollCalculator`, `EmployeeValidator`)
+- **Специфікація:** розділ 5 `SRS_03_Персонал_плюс.html` (правила `BL-10` — `BL-80`)
+- **Тест-аналітик:** Ходячих Нікіта (група ФБ-42)
+- **Інженер з тестування (SDET):** Кудря Кіріл
+- **Керівник тестування (Test Lead):** Сиротін Максим
 
 ## 1. Модуль `LeaveCalculator` (`BL-10` — `BL-40`)
 
@@ -14,28 +12,26 @@
 
 | ID | Вимога | Метод | Тип тесту | Вхідні дані | Очікуваний результат (Expected Result) | Статус рев'ю |
 |---|---|---|---|---|---|---|
-| TC-01 | BL-10 | `accrued(monthsWorked)` | Граничний | `monthsWorked = 0` | `0` | Pending |
-| TC-02 | BL-10 | `accrued(monthsWorked)` | Позитивний | `monthsWorked = 6` | `12` | Pending |
-| TC-03 | BL-10 | `accrued(monthsWorked)` | Граничний | `monthsWorked = 12` | `24` | Pending |
-| TC-04 | BL-10 | `accrued(monthsWorked)` | Граничний (ліміт) | `monthsWorked = 13` | `24` (не перевищує `MAX_ACCRUAL_PER_YEAR`) | Pending |
-| TC-05 | BL-10 | `accrued(monthsWorked)` | Негативний | `monthsWorked = -1` | Виняток `IllegalArgumentException` | Pending |
-| TC-06 | BL-20 | `carryOver(unused)` | Граничний | `unused = 0` | `0` | Pending |
-| TC-07 | BL-20 | `carryOver(unused)` | Позитивний | `unused = 3` | `3` | Pending |
-| TC-08 | BL-20 | `carryOver(unused)` | Граничний | `unused = 5` | `5` | Pending |
-| TC-09 | BL-20 | `carryOver(unused)` | Граничний (ліміт) | `unused = 6` | `5` (обмежується `MAX_CARRY_OVER`) | Pending |
-| TC-10 | BL-20 | `carryOver(unused)` | Негативний | `unused = -1` | Виняток `IllegalArgumentException` | Pending |
-| TC-11 | BL-30 | `durationDays(start, end)` | Граничний (1 будній день) | `start = 2026-11-16` (Пн), `end = 2026-11-16` (Пн) | `1` (обидві межі включно) | Pending |
-| TC-12 | BL-30 | `durationDays(start, end)` | Граничний (1 вихідний день) | `start = 2026-11-14` (Сб), `end = 2026-11-14` (Сб) | `0` | Pending |
-| TC-13 | BL-30 | `durationDays(start, end)` | Позитивний (повний тиждень) | `start = 2026-11-16` (Пн), `end = 2026-11-20` (Пт) | `5` | Pending |
-| TC-14 | BL-30 | `durationDays(start, end)` | Позитивний (із вихідними) | `start = 2026-11-13` (Пт), `end = 2026-11-16` (Пн) | `2` (Сб та Нд не враховуються) | Pending |
-| TC-15 | BL-30 | `durationDays(start, end)` | Негативний (`start > end`) | `start = 2026-11-20`, `end = 2026-11-16` | Виняток `IllegalArgumentException` | Pending |
-| TC-16 | BL-30 | `durationDays(start, end)` | Негативний (`null`) | `start = null`, `end = 2026-11-16` | Виняток `IllegalArgumentException` | Pending |
-| TC-17 | BL-40 | `canRequest(balance, duration)` | Граничний (`duration = 0`) | `balance = 5`, `duration = 0` | `false` | Pending |
-| TC-18 | BL-40 | `canRequest(balance, duration)` | Граничний (`duration = 1`) | `balance = 5`, `duration = 1` | `true` | Pending |
-| TC-19 | BL-40 | `canRequest(balance, duration)` | Граничний (`duration == balance`) | `balance = 5`, `duration = 5` | `true` | Pending |
-| TC-20 | BL-40 | `canRequest(balance, duration)` | Граничний (`duration > balance`) | `balance = 5`, `duration = 6` | `false` | Pending |
-
----
+| TC-01 | BL-10 | `LeaveCalculatorTest#accruedCalculatesWithYearlyCap` | Граничний | `monthsWorked = 0` | `0` | Reviewed (Кудря К.) |
+| TC-02 | BL-10 | `LeaveCalculatorTest#accruedCalculatesWithYearlyCap` | Позитивний | `monthsWorked = 6` | `12` | Reviewed (Кудря К.) |
+| TC-03 | BL-10 | `LeaveCalculatorTest#accruedCalculatesWithYearlyCap` | Граничний | `monthsWorked = 12` | `24` | Reviewed (Кудря К.) |
+| TC-04 | BL-10 | `LeaveCalculatorTest#accruedCalculatesWithYearlyCap` | Граничний (ліміт) | `monthsWorked = 13` | `24` (не перевищує `MAX_ACCRUAL_PER_YEAR`) | Reviewed (Кудря К.) |
+| TC-05 | BL-10 | `LeaveCalculatorTest#accruedNegativeThrows` | Негативний | `monthsWorked = -1` | Виняток `IllegalArgumentException` | Reviewed (Кудря К.) |
+| TC-06 | BL-20 | `LeaveCalculatorTest#carryOverCapsAtMax` | Граничний | `unused = 0` | `0` | Reviewed (Кудря К.) |
+| TC-07 | BL-20 | `LeaveCalculatorTest#carryOverCapsAtMax` | Позитивний | `unused = 3` | `3` | Reviewed (Кудря К.) |
+| TC-08 | BL-20 | `LeaveCalculatorTest#carryOverCapsAtMax` | Граничний | `unused = 5` | `5` | Reviewed (Кудря К.) |
+| TC-09 | BL-20 | `LeaveCalculatorTest#carryOverCapsAtMax` | Граничний (ліміт) | `unused = 6` | `5` (обмежується `MAX_CARRY_OVER`) | Reviewed (Кудря К.) |
+| TC-10 | BL-20 | `LeaveCalculatorTest#carryOverNegativeThrows` | Негативний | `unused = -1` | Виняток `IllegalArgumentException` | Reviewed (Кудря К.) |
+| TC-11 | BL-30 | `LeaveCalculatorTest#durationDaysCountsWorkingDaysInclusive` | Граничний (1 будній день) | `start = 2026-11-16` (Пн), `end = 2026-11-16` (Пн) | `1` (обидві межі включно) | Reviewed (Кудря К.) |
+| TC-12 | BL-30 | `LeaveCalculatorTest#durationDaysCountsWorkingDaysInclusive` | Граничний (1 вихідний день) | `start = 2026-11-14` (Сб), `end = 2026-11-14` (Сб) | `0` | Reviewed (Кудря К.) |
+| TC-13 | BL-30 | `LeaveCalculatorTest#durationDaysCountsWorkingDaysInclusive` | Позитивний (повний тиждень) | `start = 2026-11-16` (Пн), `end = 2026-11-20` (Пт) | `5` | Reviewed (Кудря К.) |
+| TC-14 | BL-30 | `LeaveCalculatorTest#durationDaysCountsWorkingDaysInclusive` | Позитивний (із вихідними) | `start = 2026-11-13` (Пт), `end = 2026-11-16` (Пн) | `2` (Сб та Нд не враховуються) | Reviewed (Кудря К.) |
+| TC-15 | BL-30 | `LeaveCalculatorTest#durationDaysInvalidDatesThrow` | Негативний (`start > end`) | `start = 2026-11-20`, `end = 2026-11-16` | Виняток `IllegalArgumentException` | Reviewed (Кудря К.) |
+| TC-16 | BL-30 | `LeaveCalculatorTest#durationDaysInvalidDatesThrow` | Негативний (`null`) | `start = null`, `end = 2026-11-16` | Виняток `IllegalArgumentException` | Reviewed (Кудря К.) |
+| TC-17 | BL-40 | `LeaveCalculatorTest#canRequestBoundaryChecks` | Граничний (`duration = 0`) | `balance = 5`, `duration = 0` | `false` | Reviewed (Кудря К.) |
+| TC-18 | BL-40 | `LeaveCalculatorTest#canRequestBoundaryChecks` | Граничний (`duration = 1`) | `balance = 5`, `duration = 1` | `true` | Reviewed (Кудря К.) |
+| TC-19 | BL-40 | `LeaveCalculatorTest#canRequestBoundaryChecks` | Граничний (`duration == balance`) | `balance = 5`, `duration = 5` | `true` | Reviewed (Кудря К.) |
+| TC-20 | BL-40 | `LeaveCalculatorTest#canRequestBoundaryChecks` | Граничний (`duration > balance`) | `balance = 5`, `duration = 6` | `false` | Reviewed (Кудря К.) |
 
 ## 2. Модуль `PayrollCalculator` (`BL-50` — `BL-70`)
 
@@ -44,18 +40,16 @@
 | ID | Вимога | Метод | Тип тесту | Вхідні дані | Очікуваний результат (Expected Result) | Статус рев'ю |
 |---|---|---|---|---|---|---|
 | TC-21 | BL-50 | `net(gross)` | Граничний | `gross = 0.00` | `0.00` | Pending |
-| TC-22 | BL-50 | `net(gross)` | Позитивний | `gross = 10000.00` | `7700.00` (`10000 - 1800 ПДФО - 500 ВЗ`) | Pending |
-| TC-23 | BL-50 | `net(gross)` | Позитивний (округлення `HALF_UP`) | `gross = 12345.67` | `9506.17` (`9506.1659` округлено `HALF_UP`) | Pending |
+| TC-22 | BL-50 | `net(gross)` | Позитивний | `gross = 10000.00` | `7700.00` (10000 - 1800 ПДФО - 500 ВЗ) | Pending |
+| TC-23 | BL-50 | `net(gross)` | Позитивний (округлення `HALF_UP`) | `gross = 12345.67` | `9506.17` (9506.1659 округлено `HALF_UP`) | Pending |
 | TC-24 | BL-50 | `net(gross)` | Негативний | `gross = -100.00` або `null` | Виняток `IllegalArgumentException` | Pending |
 | TC-25 | BL-60 | `hourlyRate(monthly)` | Граничний | `monthly = 0.00` | `0.00` | Pending |
 | TC-26 | BL-60 | `hourlyRate(monthly)` | Позитивний (точне ділення) | `monthly = 16800.00` | `100.00` | Pending |
-| TC-27 | BL-60 | `hourlyRate(monthly)` | Граничний (округлення `HALF_UP`) | `monthly = 20000.00` | `119.05` (`20000 / 168 = 119.0476...` -> `HALF_UP`) | Pending |
+| TC-27 | BL-60 | `hourlyRate(monthly)` | Граничний (округлення `HALF_UP`) | `monthly = 20000.00` | `119.05` (20000 / 168 = 119.0476... -> `HALF_UP`) | Pending |
 | TC-28 | BL-60 | `hourlyRate(monthly)` | Негативний | `monthly = -1.00` або `null` | Виняток `IllegalArgumentException` | Pending |
-| TC-29 | BL-70 | `overtimePay(monthly, hours)` | Граничний (`0` годин) | `monthly = 16800.00`, `hours = 0` | `0.00` | Pending |
-| TC-30 | BL-70 | `overtimePay(monthly, hours)` | Позитивний (дробові години) | `monthly = 16800.00`, `hours = 2.5` | `375.00` (`100.00 * 1.5 * 2.5`) | Pending |
+| TC-29 | BL-70 | `overtimePay(monthly, hours)` | Граничний (0 годин) | `monthly = 16800.00`, `hours = 0` | `0.00` | Pending |
+| TC-30 | BL-70 | `overtimePay(monthly, hours)` | Позитивний (дробові години) | `monthly = 16800.00`, `hours = 2.5` | `375.00` (100.00 * 1.5 * 2.5) | Pending |
 | TC-31 | BL-70 | `overtimePay(monthly, hours)` | Негативний | `monthly = 16800.00`, `hours = -1` | Виняток `IllegalArgumentException` | Pending |
-
----
 
 ## 3. Модуль `EmployeeValidator` (`BL-80`)
 
