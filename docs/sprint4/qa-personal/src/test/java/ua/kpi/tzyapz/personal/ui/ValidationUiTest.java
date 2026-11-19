@@ -13,39 +13,62 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ValidationUiTest extends BaseUiTest {
 
     @Test
-    @DisplayName("TC-005: Перехід до розділу PIM та відкриття списку працівників")
-    void openPimEmployeeList() {
+    @DisplayName("TC-005: Спроба створення користувача з ім'ям коротшим за мінімальне (4 символи)")
+    void addUserWithShortUsernameShowsValidationError() {
         loginAsAdmin();
 
-        waitVisible(By.xpath("//span[text()='PIM']")).click();
-        WebElement pageTitle = waitVisible(By.xpath("//h6[text()='PIM']"));
-        assertEquals("PIM", pageTitle.getText());
+        waitVisible(By.xpath("//span[text()='Admin']")).click();
+        waitVisible(By.xpath("//button[normalize-space()='Add']")).click();
+
+        WebElement usernameInput = waitVisible(
+                By.xpath("//label[text()='Username']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
+        usernameInput.sendKeys("User");
+
+        // Переводимо фокус на інше поле/елемент форми для спрацювання клієнтської валідації
+        waitVisible(By.xpath("//h6[text()='Add User']")).click();
+
+        WebElement errorMsg = waitVisible(By.cssSelector(".oxd-input-field-error-message"));
+        assertEquals("Should have at least 5 characters", errorMsg.getText());
     }
 
     @Test
-    @DisplayName("TC-006: Валідація обов'язкових полів при додаванні нового працівника (PIM -> Add Employee)")
-    void addEmployeeEmptyRequiredFieldsShowsValidation() {
+    @DisplayName("TC-006: Спроба створення користувача з паролем без цифр")
+    void addUserWithPasswordWithoutDigitsShowsValidationError() {
         loginAsAdmin();
 
-        waitVisible(By.xpath("//span[text()='PIM']")).click();
-        waitVisible(By.linkText("Add Employee")).click();
+        waitVisible(By.xpath("//span[text()='Admin']")).click();
+        waitVisible(By.xpath("//button[normalize-space()='Add']")).click();
 
-        // Чекаємо завантаження форми і натискаємо Save без заповнення First Name та Last Name
-        waitVisible(By.name("firstName"));
+        WebElement passwordInput = waitVisible(
+                By.xpath("//label[text()='Password']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
+        passwordInput.sendKeys("Password");
+
+        // Переводимо фокус для спрацювання валідації складності пароля
+        waitVisible(By.xpath("//h6[text()='Add User']")).click();
+
+        WebElement errorMsg = waitVisible(By.cssSelector(".oxd-input-field-error-message"));
+        assertEquals("Your password must contain minimum 1 number", errorMsg.getText());
+    }
+
+    @Test
+    @DisplayName("TC-021: Спроба додавання кандидата з недійсним email (без доменної зони)")
+    void addCandidateWithInvalidEmailShowsFormatError() {
+        loginAsAdmin();
+
+        waitVisible(By.xpath("//span[text()='Recruitment']")).click();
+        waitVisible(By.xpath("//button[normalize-space()='Add']")).click();
+
+        waitVisible(By.name("firstName")).sendKeys("Ivan");
+        waitVisible(By.name("lastName")).sendKeys("Franko");
+
+        WebElement emailInput = waitVisible(
+                By.xpath("//label[text()='Email']/ancestor::div[contains(@class,'oxd-input-group')]//input"));
+        emailInput.sendKeys("ivan_franko@test");
+
         waitVisible(By.cssSelector("button[type='submit']")).click();
-        waitVisible(By.cssSelector(".oxd-input-field-error-message"));
 
-        int requiredCount = driver.findElements(By.cssSelector(".oxd-input-field-error-message")).size();
-        assertTrue(requiredCount >= 2, "Мають відображатися помилки валідації 'Required' для імені та прізвища");
-    }
-
-    @Test
-    @DisplayName("TC-021: Перевірка відкриття профілю користувача (My Info -> Personal Details)")
-    void openMyInfoPersonalDetails() {
-        loginAsAdmin();
-
-        waitVisible(By.xpath("//span[text()='My Info']")).click();
-        WebElement sectionHeader = waitVisible(By.xpath("//h6[text()='Personal Details']"));
-        assertEquals("Personal Details", sectionHeader.getText());
+        WebElement errorMsg = waitVisible(By.cssSelector(".oxd-input-field-error-message"));
+        assertTrue(errorMsg.getText().contains("Expected format"),
+                "Має відображатися помилка формату email ('Expected format: admin@example.com')");
     }
 }
