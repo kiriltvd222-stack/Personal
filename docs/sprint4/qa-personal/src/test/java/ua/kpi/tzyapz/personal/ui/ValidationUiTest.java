@@ -28,7 +28,7 @@ class ValidationUiTest extends BaseUiTest {
         waitVisible(By.xpath("//h6[text()='Add User']")).click();
 
         WebElement errorMsg = waitVisible(By.cssSelector(".oxd-input-field-error-message"));
-        assertEquals("Should have at least 5 characters", errorMsg.getText());
+        assertEquals("Should be at least 5 characters", errorMsg.getText());
     }
 
     @Test

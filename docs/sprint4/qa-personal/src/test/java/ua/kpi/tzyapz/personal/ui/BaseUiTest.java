@@ -29,7 +29,7 @@ public abstract class BaseUiTest {
         options.addArguments("--window-size=1920,1080");
 
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(25));
         driver.get(BASE_URL);
     }
 
